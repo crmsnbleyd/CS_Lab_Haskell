@@ -7,15 +7,12 @@ main = do
     else do
         let (a: b: xs) = args
         inp <- readFile a
-        let outh = removeWS (reverse inp) []
+        let (outh,_) =  foldr mango ([],' ') inp-- removeWS (reverse inp) []
         writeFile b outh
 
-removeWS :: [Char] -> [Char] -> [Char]
-removeWS [] acc = acc
-removeWS (x:xs) full
-    | isWhitespace x && isWhitespace (head full) = removeWS xs full
-    | isWhitespace x = removeWS xs (' ':full)
-    | otherwise = removeWS xs (x:full)
-    
-isWhitespace :: Char -> Bool
-isWhitespace x = x == ' ' || x == '\t'
+mango :: Char -> ([Char], Char) -> ([Char], Char)
+mango x (acc, last)
+    | isWhitespace x && isWhitespace last = (acc, last)
+    | isWhitespace x = (' ':acc, x)
+    | otherwise = (x:acc, x)
+    where isWhitespace x = x == ' ' || x == '\t'
