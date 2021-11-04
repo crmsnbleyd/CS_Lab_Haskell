@@ -12,11 +12,10 @@ main = do
 
 removeWS :: [Char] -> [Char] -> [Char]
 removeWS [] acc = acc
-removeWS (x:xs) full@(a:acc) 
-    | isWhitespace x && isWhitespace a = removeWS xs full
+removeWS (x:xs) full
+    | isWhitespace x && isWhitespace (head full) = removeWS xs full
     | isWhitespace x = removeWS xs (' ':full)
     | otherwise = removeWS xs (x:full)
-removeWS xs acc = removeWS (tail xs) (head xs:acc)
-
+    
 isWhitespace :: Char -> Bool
 isWhitespace x = x == ' ' || x == '\t'
