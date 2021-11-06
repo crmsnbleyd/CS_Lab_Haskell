@@ -9,8 +9,9 @@ main = do
     else do
         let (inp:rest) = args
         str <- readFile inp
-        (putStr . unlines . filterKeyWord . words) str
+        putStr . unlines . filterKeyWord . words $ str
 
 filterKeyWord = filter (\x -> member (map toUpper x) keys)
-    where keys = fromList ["INT", "SHORT", "LONG", "CHAR", "FOR", "IF", "WHILE"
+    where keys = fromList ["INT", "SHORT", "LONG"
+                , "CHAR", "FOR", "IF", "WHILE"
                 ,"RETURN", "VOID", "MAIN"]
