@@ -1,4 +1,5 @@
 /CD/build
 /CN/build
 *.txt
+*.pdf
 CHANGELOG.md
