@@ -26,10 +26,20 @@ assignmentPattern = "="
 boolPattern = "!|[|]{2}|&&"
 bitPattern = "[|&]|<<|>>"
 keywordPattern = "[_a-zA-Z][_a-zA-Z0-9]*"
--- matchStringLiteral :: String -> String
+
+matchStringLiteral :: String -> Int -> Int
   -- do not want to use regex for this
   -- return complete matched string literal or 
   -- throw error if not actually one
+
+matchStringLiteral (x:y:rest) len
+  | x == '\\' = matchStringLiteral rest len+2
+  | y == '"' = len+2
+  | otherwise = matchStringLiteral rest len+2
+
+matchStringLiteral (x:xs) len | x == '"' = len+1
+matchStringLiteral [] _ = error "malformed string"
+matchStringLiteral _ _ = error "dunno man"
 
 getNextToken:: String -> Either String TokenStruct
 getNextToken "" = Left "empty string"

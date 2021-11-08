@@ -19,4 +19,4 @@ helper (op:rest) (x:y:stack)
     where a = read x :: Float
           b = read y :: Float
 
-helper (num:rest) stack = helper rest (num:stack)
+helper (num:rest) stack= helper rest (num:stack)
